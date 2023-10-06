@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="latest-products">
+    <h1>Search Results for "{{ query }}"</h1>
+    {% for task in tasks %}
+    <div class="box">
+        <figure class="image2 mb-4">
+            <img src="{{ task.get_image }}" alt="{{ task.title }}">
+        </figure>
+        <h3 class="is-size-4">{{ task.title }}</h3>
+        <p class="is-size-6 has-text-grey">Description: {{ task.description }}</p>
+        <p class="is-size-6 has-text-grey">Due Date: {{ task.due_date }}</p>
+        <p class="is-size-6 has-text-grey">Priority: {{ task.priority }}</p>
+        <p class="is-size-6 has-text-grey">Completed: {{ task.completed }}</p>
+        <p class="is-size-6 has-text-grey">Created At: {{ task.created_at }}</p>
+        <p class="is-size-6 has-text-grey">Updated At: {{ task.updated_at }}</p>
+        <a href="{% url 'view-task' task.id %}">View Task</a>
+        <a href="{% url 'update-task' task.id %}">Update Task</a>
+        <a href="{% url 'delete-task' task.id %}">Delete Task</a>
+    </div>
+    {% endfor %}
+<div>
+{% endblock %}

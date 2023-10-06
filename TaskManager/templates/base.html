@@ -1,9 +1,61 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager</title>
+    <!-- Include your CSS files here -->
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+</head>
 <body>
+    <div class="navbar">
+        <div class="navbar__left">
+            <div class="navbar__logo">
+                <a href="{% url 'list-task' %}" class="text-danger"> 
+                    Task Swift
+                </a>
+            </div>  
+            <div class="navbar__search-form">
+                <!-- Search Form -->
+                <form method="GET" action="{% url 'search' %}">
+                    <input type="text" name="search" placeholder="Search tasks...">
+                    <button type="submit">Search</button>
+                </form>
+            </div>  
+            <div class="navbar__filter-form">
+                <!-- Filter Form -->
+                <form method="GET" action="">
+                    <select name="status">
+                        <option value="">All</option>
+                        <option value="todo">To-Do</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                    <button type="submit">Filter</button>
+                </form>
+            </div>    
+        </div>
+        <div class="navbar__right">
+            <div class="navbar__add-task">
+                <!-- Add Task Form -->
+                <a href="{% url 'add' %}" class="navbar__link1">Add Task</a>
+            </div> 
+            {% if request.user.is_authenticated %}
+            <p>{{ request.user }}</p>
+            <a href="{% url 'logout' %}">Logout</a>
+            {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
 
-    <h1>Hello World!</h1>
-    <p>Welcome to my first Django project!</p>
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
 
-</body>
+    <div id="footer">
+    </div>
 </html>
