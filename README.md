@@ -238,13 +238,18 @@ To run the Task Management app locally, follow these steps:
   ```
 6.  Run database migrations:
   ```
+  python manage.py makemigrations
   python manage.py migrate
   ```
-7.  Start the development server:
+7.  Populate database table:
+  ```
+  python manage.py loaddata data.json
+  ```
+8.  Start the development server:
   ```
   python manage.py runserver
   ```
-8.  Access the landing page at http://localhost:8000/ 
+9.  Access the landing page at http://localhost:8000/ 
 
 ## Customization
 
