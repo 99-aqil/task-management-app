@@ -4,6 +4,7 @@ from datetime import datetime
 from django.utils import timezone
 from django.http import Http404
 from rest_framework import status
+from django.db.models import F, Case, When
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.shortcuts import render, redirect, get_object_or_404
@@ -20,7 +21,19 @@ from .models import Task
 class ListTaskAPI(LoginRequiredMixin, APIView):
     
     def get(self, request):
-        tasks = Task.objects.filter(user=self.request.user)
+        # Define custom sorting order for priority values
+        priority_ordering = {
+            'low': 1,
+            'medium': 2,
+            'high': 3,
+        }
+        tasks = Task.objects.filter(user=self.request.user).order_by(
+            Case(
+                *[When(priority=priority, then=value) for priority, value in priority_ordering.items()],
+                default=4
+            )
+        )
+
         serializer = TaskSerializer(tasks, many=True)
 
         return render(request, 'task_list.html', {'tasks': serializer.data})
@@ -33,8 +46,7 @@ class AddTaskAPI(LoginRequiredMixin, APIView):
         serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            # return redirect('list-task')
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return redirect('list-task')
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
@@ -43,8 +55,8 @@ class DetailTaskAPI(LoginRequiredMixin, APIView):
     def get(self, request, pk):
         task = Task.objects.get(pk=pk)
         serializer = TaskSerializer(task)
-        # return render(request, 'task_detail.html', {'task': serializer.data})
-        return Response(serializer.data)
+        return render(request, 'task_detail.html', {'task': serializer.data})
+        # return Response(serializer.data)
 
 
 class EditTaskAPI(APIView):
@@ -77,9 +89,9 @@ class TaskSearchAPI(APIView):
         tasks = Task.objects.filter(title__icontains=search_query, user=request.user)
         serializer = TaskSerializer(tasks, many=True)
 
-        # return render(request, 'search.html', {'tasks': serializer.data, 'query': search_query})
+        return render(request, 'search.html', {'tasks': serializer.data, 'query': search_query})
 
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class FilterTaskAPI(APIView):
@@ -101,7 +113,7 @@ class FilterTaskAPI(APIView):
             tasks = tasks.filter(completed=False, user=request.user)
 
         serializer = TaskSerializer(tasks, many=True)
-        # return render(request, 'filter.html', {'tasks': serializer.data})
+        return render(request, 'filter.html', {'tasks': serializer.data})
                           
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # return Response(serializer.data, status=status.HTTP_200_OK)
 

@@ -10,6 +10,7 @@ urlpatterns = [
     path('filter/', apis.FilterTaskAPI.as_view(), name='filter'),
     # path('updateTask/<int:pk>/', apis.UpdateTaskAPI.as_view(), name='update-task'),
     # path('deleteTask/<int:pk>/', apis.DeleteTaskAPI.as_view(), name='delete-task'),
+    
 
     path('login/', views.CustomLoginView.as_view(), name='login'),
     path('register/', views.RegisterPage.as_view(), name='register'),

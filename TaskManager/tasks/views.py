@@ -47,15 +47,20 @@ def Edit_Info(request, pk):
     context = {'task': task, 'form': form}
     return render(request, 'edit_task.html', context)
 
-@login_required(login_url='/login/') 
+
+@login_required(login_url='/login/')
 def Delete_Info(request, pk):
-    student = Task.objects.get(pk=pk)
-    student.delete()
+    task = get_object_or_404(Task, pk=pk)
 
-    return redirect('list-task')
+    if request.method == 'POST':
+        task.delete()
+        return redirect('list-task')
+
+    context = {'task': task}
+    return render(request, 'delete.html', context)
 
 
-
+@login_required(login_url='/login/') 
 def add_task_form(request):
     context = request.user.id
     print(context)
