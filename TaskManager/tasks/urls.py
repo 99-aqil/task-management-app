@@ -7,6 +7,7 @@ urlpatterns = [
     path('addTask/', apis.AddTaskAPI.as_view(), name='add-task'),
     path('viewTask/<int:pk>/', apis.DetailTaskAPI.as_view(), name='view-task'),
     path('search/', apis.TaskSearchAPI.as_view(), name='search'),
+    path('filter/', apis.FilterTaskAPI.as_view(), name='filter'),
     # path('updateTask/<int:pk>/', apis.UpdateTaskAPI.as_view(), name='update-task'),
     # path('deleteTask/<int:pk>/', apis.DeleteTaskAPI.as_view(), name='delete-task'),
 

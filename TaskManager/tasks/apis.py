@@ -1,5 +1,7 @@
 # import necessary libraries
 from django.db.models import Q
+from datetime import datetime
+from django.utils import timezone
 from django.http import Http404
 from rest_framework import status
 from rest_framework.views import APIView
@@ -21,7 +23,7 @@ class ListTaskAPI(LoginRequiredMixin, APIView):
         tasks = Task.objects.filter(user=self.request.user)
         serializer = TaskSerializer(tasks, many=True)
 
-        return render(request, 'task_view.html', {'tasks': serializer.data})
+        return render(request, 'task_list.html', {'tasks': serializer.data})
     
         # return Response(serializer.data)
 
@@ -31,7 +33,8 @@ class AddTaskAPI(LoginRequiredMixin, APIView):
         serializer = TaskSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return redirect('list-task')
+            # return redirect('list-task')
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
@@ -40,6 +43,7 @@ class DetailTaskAPI(LoginRequiredMixin, APIView):
     def get(self, request, pk):
         task = Task.objects.get(pk=pk)
         serializer = TaskSerializer(task)
+        # return render(request, 'task_detail.html', {'task': serializer.data})
         return Response(serializer.data)
 
 
@@ -65,6 +69,7 @@ class DeleteTaskAPI(APIView):
         task.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+
 class TaskSearchAPI(APIView):
 
     def get(self, request):
@@ -72,6 +77,31 @@ class TaskSearchAPI(APIView):
         tasks = Task.objects.filter(title__icontains=search_query, user=request.user)
         serializer = TaskSerializer(tasks, many=True)
 
-        return render(request, 'search.html', {'tasks': serializer.data, 'query': search_query})
+        # return render(request, 'search.html', {'tasks': serializer.data, 'query': search_query})
 
-        # return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class FilterTaskAPI(APIView):
+    def get(self, request):
+        priority = request.query_params.get('priority', None)
+        completed = request.query_params.get('completed', None)
+        filter_options = request.query_params.get('filter_options', None)
+
+        tasks = Task.objects.all()
+        
+        if filter_options == "in_progress":
+            current_date = timezone.now()
+            tasks = tasks.filter(created_at__lte=current_date, due_date__gte=current_date, completed=False, user=request.user)
+        if priority:
+            tasks = tasks.filter(priority=priority, user=request.user)
+        if completed == "True":
+            tasks = tasks.filter(completed=True, user=request.user)
+        if completed == "False":
+            tasks = tasks.filter(completed=False, user=request.user)
+
+        serializer = TaskSerializer(tasks, many=True)
+        # return render(request, 'filter.html', {'tasks': serializer.data})
+                          
+        return Response(serializer.data, status=status.HTTP_200_OK)
+

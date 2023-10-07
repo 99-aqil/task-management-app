@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Swift</title>
+</head>
+<body>
+    <div class="home">
+        <section class="welcome-section">
+            <div class="welcome-content has-text-centered">
+                <p class="welcome-title">
+                    Welcome to Task Swift
+                </p>
+                <p class="welcome-subtitle">
+                    Where Efficiency Meets Simplicity.
+                </p>
+                <p class="welcome-subtitle">
+                    Empowering Your Productivity, One Task at a Time.
+                </p>
+            </div>
+        </section>
+        <div class="row">
+            <div class="topic">
+                <h2 class="is-size-2 has-text-centered">Tasks</h2>
+            </div>
+            <div class="latest-tasks">
+                {% for task in tasks reversed %}
+                <div class="box">
+                    <figure class="image2 mb-4">
+                        <img src="{{ task.get_image }}" alt="{{ task.title }}">
+                    </figure>
+                    <h3 class="is-size-4">{{ task.title }}</h3>
+                    <p class="is-size-6 has-text-grey">Due Date: {{ task.formatted_due_date }}</p>
+                    <p class="is-size-6 has-text-grey">Priority: {{ task.priority }}</p>
+                    <p class="is-size-6 has-text-grey">Completed: {{ task.completed }}</p>
+                    <a href="{% url 'view-task' task.id %}" class="icon-link"><i class="fas fa-eye"></i></a>
+                    <a href="{% url 'update-task' task.id %}" class="icon-link"><i class="fas fa-edit"></i></a>
+                    <a href="{% url 'delete-task' task.id %}" class="icon-link"><i class="fas fa-trash-alt"></i></a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

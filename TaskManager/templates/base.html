@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task Manager</title>
     <!-- Include your CSS files here -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="{% static "css/styles.css" %}">
 </head>
 <body>
@@ -26,24 +27,32 @@
             </div>  
             <div class="navbar__filter-form">
                 <!-- Filter Form -->
-                <form method="GET" action="">
-                    <select name="status">
-                        <option value="">All</option>
-                        <option value="todo">To-Do</option>
+                <form method="GET" action="{% url 'filter' %}">
+                    <select name="filter_options">
+                        <option value="">Filter Progress</option>
                         <option value="in_progress">In Progress</option>
-                        <option value="completed">Completed</option>
                     </select>
+                    
+                    <select name="priority">
+                        <option value="">Priority</option>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                    
+                    <select name="completed">
+                        <option value="">Status</option>
+                        <option value="True">Completed</option>
+                        <option value="False">Not Completed</option>
+                    </select>
+                    
                     <button type="submit">Filter</button>
                 </form>
             </div>    
         </div>
         <div class="navbar__right">
-            <div class="navbar__add-task">
-                <!-- Add Task Form -->
-                <a href="{% url 'add' %}" class="navbar__link1">Add Task</a>
-            </div> 
             {% if request.user.is_authenticated %}
-            <p>{{ request.user }}</p>
+            <p>Welcome, {{ request.user }}</p>
             <a href="{% url 'logout' %}">Logout</a>
             {% else %}
             <a href="{% url 'login' %}">Login</a>

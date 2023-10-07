@@ -17,5 +17,8 @@ class TaskSerializer(serializers.ModelSerializer):
             "updated_at",
             "image",
             "get_image",
-            "get_thumbnail"
+            "get_thumbnail",
+            "formatted_due_date",
+            "formatted_created_at",
+            "formatted_updated_at"
         ]

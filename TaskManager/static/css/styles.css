@@ -1,13 +1,14 @@
 .navbar {
-    background-color: #a28089;
-    color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 30px;
-    margin: -20px -20px 10px -20px;
+    background-color: #2F3C7E;
+    padding: 15px 20px 10px 20px;
+    color: #000000;
+    margin: -10px -8px 10px -10px;
 }
-  
+
+
 .navbar__left {
     display: flex;
     align-items: center;
@@ -21,27 +22,54 @@
     margin-right: 20px;
 }
   
-.navbar__search-form input[type="text"] {
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+/* Style the search form container   #2F3C7E; */   
+.navbar__search-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 0px;
 }
 
-.navbar__filter-form input[type="text"] {
-    padding: 5px;
+/* Style the text input */
+input[type="text"] {
+    padding: 8px;
+    width: 200px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 14px;
 }
-  
-.navbar__search-form input[type="submit"] {
-    background-color: #333;
+
+/* Style the filter form container */
+.navbar__filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+/* Style the select elements */
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Style the button */
+button {
+    padding: 8px 16px;
+    background-color: #7a7979;
     color: #fff;
-    padding: 5px 10px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
-  
+
+/* Style the button on hover */
+button:hover {
+    background-color: #2f2f2f; 
+}
+
 
   
 .navbar__right {
@@ -56,31 +84,71 @@
     margin-right: 50px;
 }
 
-  /* CSS for task_view.html */
+.navbar__right p {
+    padding: 8px 16px;
+    color: #fff;
+    border: none;
+    margin-right: 10px;
+}
+
+.navbar__right a {
+    padding: 8px 16px;
+    background-color: #7a7979;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.navbar__right a:hover {
+    background-color: #2f2f2f; 
+}
+
+  /* CSS for task_view.html #2F3C7E;*/
 
 .welcome-section {
-    background-color: #c89666;
-    /* background-color: #343a40;  */
+    background-color: #FBEAEB;
     color: #ffffff;
     padding: 60px 0; 
     text-align: center;
 }
 
 .welcome-title {
+    color: #5f5f5f;
     font-size: 2.5rem; 
     margin-bottom: 1rem; 
 }
 
 .welcome-subtitle {
     font-size: 1.25rem; 
-    color: #000000; 
+    color: #848484; 
 }
 
 .topic{
     font-size: 20px;
     text-align: center;
 }
-  
+
+.add-task{
+    font-size: 80px;
+    font-weight: lighter;
+    text-align: center;
+}
+
+.add-task a{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    color: #636a8d;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.add-task a:hover {
+    color: #2F3C7E;
+}
+
 
 .latest-tasks {
     display: flex;
@@ -93,7 +161,7 @@
   width: 300px;
   padding: 10px;
   margin: 10px;
-  background-color: #fff;
+  background-color: #fff7f7;
   border: 1px solid #ccc;
   border-radius: 5px;
   position: relative; /* Add this to make the pseudo-element positioning relative to .box */
@@ -101,7 +169,7 @@
 
 .box img {
   max-width: 100%;
-  height: auto;
+  height: 200px;
   margin-bottom: 10px;
 }
   
@@ -114,3 +182,152 @@
     font-size: 1.25rem;
     color: #777;
 }
+.box a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #7a7979; /* Change this to your desired background color */
+    color: #fff; /* Text color */
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.box a:hover {
+    background-color: #2f2f2f; 
+}
+
+.box a + a {
+    margin-left: 10px;
+}
+
+.box a {
+    text-align: center;
+}
+
+.box a {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Style the task-details container */
+.task-details {
+    background-color: #f7f7f7;
+    padding: 20px;
+}
+
+/* Style the task-details-section */
+.task-details-section {
+    background-color: #c89666;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Style the task-details-title */
+.task-details-title {
+    font-size: 24px;
+}
+
+/* Style the task-info container */
+.task-info {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Style the task-heading */
+.task-heading {
+    text-align: center;
+}
+
+.task-details-box {
+    display: flex;
+    align-items: center;
+}
+
+.task-image {
+    flex: 1;
+    margin-right: 20px; 
+}
+
+.task-image img{
+    width: 100%;
+    height: 400px;
+}
+
+.task-details {
+    flex: 2;
+}
+
+
+/* Add this CSS to your stylesheet */
+
+.page-title {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+.task-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    font-weight: bold;
+}
+
+.page-title {
+    font-size: 24px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-right: 10px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: #7a7979;;
+    color: #fff;
+    border: none;
+}
+
+.btn-secondary {
+    background-color: #aeaeae;
+    color: #ffffff;
+    border: none;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+    background-color: #2f2f2f; 
+}
+
+.form-column1 {
+    flex: 1;
+    margin-right: 20px; 
+}
+
+
+.form-column2 {
+    flex: 2;
+}
+
+

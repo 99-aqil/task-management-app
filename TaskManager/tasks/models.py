@@ -25,6 +25,18 @@ class Task(models.Model):
         ordering = ('-created_at',)
         db_table = 'Task'
 
+    # Custom method to format due_date
+    def formatted_due_date(self):
+        return self.due_date.strftime("%B %d, %Y %I:%M %p")
+
+    # Custom method to format created_at
+    def formatted_created_at(self):
+        return self.created_at.strftime("%B %d, %Y %I:%M %p")
+
+    # Custom method to format updated_at
+    def formatted_updated_at(self):
+        return self.updated_at.strftime("%B %d, %Y %I:%M %p")
+
 
     def get_image(self):
         if self.image:

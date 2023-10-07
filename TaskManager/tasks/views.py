@@ -37,7 +37,7 @@ def Edit_Info(request, pk):
     task = get_object_or_404(Task, pk=pk)
 
     if request.method == 'POST':
-        form = TaskForm(request.POST, instance=task)
+        form = TaskForm(request.POST, request.FILES, instance=task)
         if form.is_valid():
             form.save()
             return redirect('list-task')
