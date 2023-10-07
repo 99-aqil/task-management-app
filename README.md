@@ -218,7 +218,7 @@ To run the Task Management app locally, follow these steps:
 
 1.  Clone the project repository from GitHub.
   ```
-  git clone https://github.com/99-aqil/mediusware-coding-test.git
+  git clone -b dev.0.0.1 https://github.com/99-aqil/mediusware-coding-test.git
   ```
 3.  Create a virtual environment:
   ```
